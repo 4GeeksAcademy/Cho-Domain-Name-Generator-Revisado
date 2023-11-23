@@ -1,29 +1,37 @@
 window.onload = function() {
-  //write your code here
-  document.querySelector("#generate").addEventListener("click", domainGenerator);
-  
+  document.querySelector("#generate").addEventListener("click", function() {
+
+    let domains = domainGenerator(pronouns, adjectives, nouns, extensions);
+    document.querySelector("#domainsGen").innerHTML = domains
+      .map(function(item) {
+        return '<li class="list-group-item">' + item + '</li>';
+      }).join("");
+  });
 };
 
+let pronouns = ['the', 'our'];
+let adjectives = ['great', 'big'];
+let nouns = ['jogger', 'racoon'];
+let extensions = ['.com', '.net', '.us', '.io'];
 
-function domainGenerator() {
-  let pronoun = ['the', 'our'];
-  let adj = ['great', 'big'];
-  let noun = ['jogger', 'racoon'];
-  let extension = ['.com', '.net', '.us', '.io'];
 
-  let domains = []; 
+function domainGenerator(pronouns, adjectives, nouns, extensions) {
+  let domains = [];
 
-  for (let p = 0; p < pronoun.length; ++p) {
-    for (let a = 0; a < adj.length; ++a) {
-      for (let n = 0; n < noun.length; ++n) {
-        for (let e = 0; e < extension.length; ++e) {
-          let domain = pronoun[p] + adj[a] + noun[n] + extension[e];
+  for (let i = 0; i < pronouns.length; i++) {
+    for (let j = 0; j < adjectives.length; j++) {
+      for (let k = 0; k < nouns.length; k++) {
+        for (let l = 0; l < extensions.length; l++) {
+
+          let domain = pronouns[i] + adjectives[j] + nouns[k] + extensions[l];
           domains.push(domain);
-          console.log(domain);
         }
       }
     }
   }
-
-  document.querySelector("#domains").innerHTML = "<li>" + domains.join("</li><li>") + "</li>";
+  return domains;
 };
+
+
+let generatedDomains = domainGenerator(pronouns, adjectives, nouns, extensions);
+console.log(generatedDomains.join('\n'));
